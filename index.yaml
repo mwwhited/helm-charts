@@ -5,7 +5,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 3.2.0-ci20221023104
-    created: "2023-04-01T08:06:50.2541099-04:00"
+    created: "2023-04-01T08:17:18.5042986-04:00"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -29,6 +29,6 @@ entries:
     - https://github.com/mwwhited/helm-charts
     type: application
     urls:
-    - https://github.com/mwwhited/helm-charts/smtp4dev-3.2.0.tgz
+    - https://github.com/mwwhited/helm-charts/blob/main/smtp4dev-3.2.0.tgz
     version: 3.2.0
-generated: "2023-04-01T08:06:50.24988-04:00"
+generated: "2023-04-01T08:17:18.499294-04:00"
