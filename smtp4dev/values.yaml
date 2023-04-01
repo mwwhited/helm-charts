@@ -1,0 +1,536 @@
+## @section Global parameters
+## Global Docker image parameters
+## Please, note that this will override the image parameters, including dependencies, configured to use the global value
+## Current available global Docker image parameters: imageRegistry, imagePullSecrets and storageClass
+
+## @param global.imageRegistry Global Docker image registry
+## @param global.imagePullSecrets Global Docker registry secret names as an array
+##
+global:
+  imageRegistry: ""
+  ## E.g.
+  ## imagePullSecrets:
+  ##   - myRegistryKeySecretName
+  ##
+  imagePullSecrets: []
+
+## @section Common parameters
+
+## @param nameOverride String to partially override smtp4dev.fullname template (will maintain the release name)
+##
+nameOverride: ""
+## @param fullnameOverride String to fully override smtp4dev.fullname template
+##
+fullnameOverride: ""
+## @param namespaceOverride String to fully override common.names.namespace
+##
+namespaceOverride: ""
+## @param kubeVersion Force target Kubernetes version (using Helm capabilities if not set)
+##
+kubeVersion: ""
+## @param clusterDomain Kubernetes Cluster Domain
+##
+clusterDomain: cluster.local
+## @param extraDeploy Extra objects to deploy (value evaluated as a template)
+##
+extraDeploy: []
+## @param commonLabels Add labels to all the deployed resources
+##
+commonLabels: {}
+## @param commonAnnotations Add annotations to all the deployed resources
+##
+commonAnnotations: {}
+
+## @section smtp4dev parameters
+
+## rnwood smtp4dev image version
+## ref: https://hub.docker.com/r/rnwood/smtp4dev/tags/
+## @param image.registry smtp4dev image registry
+## @param image.repository smtp4dev image repository
+## @param image.tag smtp4dev image tag (immutable tags are recommended)
+## @param image.digest smtp4dev image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag
+## @param image.pullPolicy smtp4dev image pull policy
+## @param image.pullSecrets Specify docker-registry secret names as an array
+## @param image.debug Set to true if you would like to see extra information on logs
+##
+image:
+  registry: docker.io
+  repository: rnwood/smtp4dev
+  tag: 3.2.0-ci20221023104
+  digest: ""
+  ## Specify a imagePullPolicy
+  ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+  ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  ##
+  pullPolicy: IfNotPresent
+  ## Optionally specify an array of imagePullSecrets.
+  ## Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ## E.g.:
+  ## pullSecrets:
+  ##   - myRegistryKeySecretName
+  ##
+  pullSecrets: []
+  ## Set to true if you would like to see extra information on logs
+  ##
+  debug: false
+## @param hostAliases Deployment pod host aliases
+## https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
+##
+hostAliases: []
+## Command and args for running the container (set to default if not set). Use array form
+## @param command Override default container command (useful when using custom images)
+## @param args Override default container args (useful when using custom images)
+##
+command: []
+args: []
+## @param extraEnvVars Extra environment variables to be set on smtp4dev containers
+## E.g:
+## extraEnvVars:
+##   - name: FOO
+##     value: BAR
+##
+extraEnvVars: []
+## @param extraEnvVarsCM ConfigMap with extra environment variables
+##
+extraEnvVarsCM: ""
+## @param extraEnvVarsSecret Secret with extra environment variables
+##
+extraEnvVarsSecret: ""
+
+## @section smtp4dev deployment parameters
+
+## @param replicaCount Number of smtp4dev replicas to deploy
+##
+replicaCount: 1
+## @param updateStrategy.type smtp4dev deployment strategy type
+## @param updateStrategy.rollingUpdate smtp4dev deployment rolling update configuration parameters
+## ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
+##
+updateStrategy:
+  type: RollingUpdate
+  rollingUpdate: {}
+## @param podLabels Additional labels for smtp4dev pods
+## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+##
+podLabels: {}
+## @param podAnnotations Annotations for smtp4dev pods
+## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+##
+podAnnotations: {}
+## @param podAffinityPreset Pod affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
+##
+podAffinityPreset: ""
+## @param podAntiAffinityPreset Pod anti-affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`
+## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
+##
+podAntiAffinityPreset: soft
+## Node affinity preset
+## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity
+##
+nodeAffinityPreset:
+  ## @param nodeAffinityPreset.type Node affinity preset type. Ignored if `affinity` is set. Allowed values: `soft` or `hard`
+  ##
+  type: ""
+  ## @param nodeAffinityPreset.key Node label key to match Ignored if `affinity` is set.
+  ## E.g.
+  ## key: "kubernetes.io/e2e-az-name"
+  ##
+  key: ""
+  ## @param nodeAffinityPreset.values Node label values to match. Ignored if `affinity` is set.
+  ## E.g.
+  ## values:
+  ##   - e2e-az1
+  ##   - e2e-az2
+  ##
+  values: []
+## @param affinity Affinity for pod assignment
+## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+## Note: podAffinityPreset, podAntiAffinityPreset, and  nodeAffinityPreset will be ignored when it's set
+##
+affinity: {}
+## @param hostNetwork Specify if host network should be enabled for smtp4dev pod
+##
+hostNetwork: false
+## @param hostIPC Specify if host IPC should be enabled for smtp4dev pod
+##
+hostIPC: false
+## @param nodeSelector Node labels for pod assignment. Evaluated as a template.
+## Ref: https://kubernetes.io/docs/user-guide/node-selection/
+##
+nodeSelector: {}
+## @param tolerations Tolerations for pod assignment. Evaluated as a template.
+## Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+##
+tolerations: []
+## @param priorityClassName smtp4dev pods' priorityClassName
+##
+priorityClassName: ""
+## @param schedulerName Name of the k8s scheduler (other than default)
+## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
+##
+schedulerName: ""
+## @param terminationGracePeriodSeconds In seconds, time the given to the smtp4dev pod needs to terminate gracefully
+## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods
+##
+terminationGracePeriodSeconds: ""
+## @param topologySpreadConstraints Topology Spread Constraints for pod assignment
+## https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
+## The value is evaluated as a template
+##
+topologySpreadConstraints: []
+## smtp4dev pods' Security Context.
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
+## @param podSecurityContext.enabled Enabled smtp4dev pods' Security Context
+## @param podSecurityContext.fsGroup Set smtp4dev pod's Security Context fsGroup
+## @param podSecurityContext.sysctls sysctl settings of the smtp4dev pods
+##
+podSecurityContext:
+  enabled: false
+  fsGroup: 1001
+  ## sysctl settings
+  ## Example:
+  ## sysctls:
+  ## - name: net.core.somaxconn
+  ##   value: "10000"
+  ##
+  sysctls: []
+## smtp4dev containers' Security Context.
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
+## @param containerSecurityContext.enabled Enabled smtp4dev containers' Security Context
+## @param containerSecurityContext.runAsUser Set smtp4dev container's Security Context runAsUser
+## @param containerSecurityContext.runAsNonRoot Set smtp4dev container's Security Context runAsNonRoot
+##
+containerSecurityContext:
+  enabled: false
+  runAsUser: 1001
+  runAsNonRoot: true
+## Configures the ports smtp4dev listens on
+## @param containerPorts.http Sets http port inside smtp4dev container
+## @param containerPorts.https Sets https port inside smtp4dev container
+##
+containerPorts:
+  http: 80
+  https: 443
+  smtp: 25
+  imap: 143
+
+## @param extraContainerPorts Array of additional container ports for the smtp4dev container
+## e.g:
+## extraContainerPorts:
+##   - name: grpc
+##     containerPort: 4317
+##
+extraContainerPorts: []
+## smtp4dev containers' resource requests and limits
+## ref: https://kubernetes.io/docs/user-guide/compute-resources/
+## We usually recommend not to specify default resources and to leave this as a conscious
+## choice for the user. This also increases chances charts run on environments with little
+## resources, such as Minikube. If you do want to specify resources, uncomment the following
+## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+## @param resources.limits The resources limits for the smtp4dev container
+## @param resources.requests The requested resources for the smtp4dev container
+##
+resources:
+  ## Example:
+  ## limits:
+  ##    cpu: 100m
+  ##    memory: 128Mi
+  limits: {}
+  ## Examples:
+  ## requests:
+  ##    cpu: 100m
+  ##    memory: 128Mi
+  requests: {}
+
+## smtp4dev containers' lifecycleHooks
+## ref: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/
+## If you do want to specify lifecycleHooks, uncomment the following
+## lines, adjust them as necessary, and remove the curly braces on 'lifecycle:{}'.
+## @param lifecycleHooks Optional lifecycleHooks for the smtp4dev container
+lifecycleHooks: {}
+  ## Example:
+  ## postStart:
+  ##   exec:
+  ##     command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /usr/share/message"]
+  ## Example:
+  ## preStop:
+  ##   exec:
+  ##     command: ["/bin/sleep", "20"]
+  ##     command: ["/bin/sh","-c","smtp4dev -s quit; while killall -0 smtp4dev; do sleep 1; done"]
+
+## smtp4dev containers' startup probe.
+## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
+## @param startupProbe.enabled Enable startupProbe
+## @param startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
+## @param startupProbe.periodSeconds Period seconds for startupProbe
+## @param startupProbe.timeoutSeconds Timeout seconds for startupProbe
+## @param startupProbe.failureThreshold Failure threshold for startupProbe
+## @param startupProbe.successThreshold Success threshold for startupProbe
+##
+startupProbe:
+  enabled: false
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+  periodSeconds: 10
+  failureThreshold: 6
+  successThreshold: 1
+## smtp4dev containers' liveness probe.
+## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
+## @param livenessProbe.enabled Enable livenessProbe
+## @param livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
+## @param livenessProbe.periodSeconds Period seconds for livenessProbe
+## @param livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
+## @param livenessProbe.failureThreshold Failure threshold for livenessProbe
+## @param livenessProbe.successThreshold Success threshold for livenessProbe
+##
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+  periodSeconds: 10
+  failureThreshold: 6
+  successThreshold: 1
+## smtp4dev containers' readiness probe.
+## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
+## @param readinessProbe.enabled Enable readinessProbe
+## @param readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
+## @param readinessProbe.periodSeconds Period seconds for readinessProbe
+## @param readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
+## @param readinessProbe.failureThreshold Failure threshold for readinessProbe
+## @param readinessProbe.successThreshold Success threshold for readinessProbe
+##
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 5
+  timeoutSeconds: 3
+  periodSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+## @param customStartupProbe Custom liveness probe for the Web component
+##
+customStartupProbe: {}
+## @param customLivenessProbe Override default liveness probe
+##
+customLivenessProbe: {}
+## @param customReadinessProbe Override default readiness probe
+##
+customReadinessProbe: {}
+
+## @param extraVolumes Array to add extra volumes
+##
+extraVolumes: []
+## @param extraVolumeMounts Array to add extra mount
+##
+extraVolumeMounts: []
+## Pods Service Account
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+##
+serviceAccount:
+  ## @param serviceAccount.create Enable creation of ServiceAccount for smtp4dev pod
+  ##
+  create: false
+  ## @param serviceAccount.name The name of the ServiceAccount to use.
+  ## If not set and create is true, a name is generated using the `common.names.fullname` template
+  name: ""
+  ## @param serviceAccount.annotations Annotations for service account. Evaluated as a template.
+  ## Only used if `create` is `true`.
+  ##
+  annotations: {}
+  ## @param serviceAccount.automountServiceAccountToken Auto-mount the service account token in the pod
+  ##
+  automountServiceAccountToken: false
+## @param sidecars Sidecar parameters
+## e.g:
+## sidecars:
+##   - name: your-image-name
+##     image: your-image
+##     imagePullPolicy: Always
+##     ports:
+##       - name: portname
+##         containerPort: 1234
+##
+sidecars: []
+
+## @param sidecarSingleProcessNamespace Enable sharing the process namespace with sidecars
+## This will switch pod.spec.shareProcessNamespace parameter
+##
+sidecarSingleProcessNamespace: false
+
+## @param initContainers Extra init containers
+##
+initContainers: []
+
+## @section Custom smtp4dev application parameters
+
+## @param serverBlock Custom server block to be added to smtp4dev configuration
+## PHP-FPM example server block:
+## serverBlock: |-
+##   server {
+##     listen 0.0.0.0:8080;
+##     root /app;
+##     location / {
+##       index index.html index.php;
+##     }
+##     location ~ \.php$ {
+##       fastcgi_pass phpfpm-server:9000;
+##       fastcgi_index index.php;
+##       include fastcgi.conf;
+##     }
+##   }
+##
+serverBlock: ""
+
+## @param staticSiteConfigmap Name of existing ConfigMap with the server static site content
+##
+staticSiteConfigmap: ""
+## @param staticSitePVC Name of existing PVC with the server static site content
+## NOTE: This will override staticSiteConfigmap
+##
+staticSitePVC: ""
+
+## @section Traffic Exposure parameters
+
+## smtp4dev Service properties
+##
+service:
+  web:    
+    enabled: true
+    type: LoadBalancer  
+    http:
+      enabled: true
+      port: 80
+      nodePort: ""
+      targetPort: http
+    https:
+      enabled: true
+      port: 443
+      nodePort: ""
+      targetPort: https
+      
+    clusterIP: ""
+    loadBalancerIP: ""
+    loadBalancerSourceRanges: []
+    extraPorts: []
+    sessionAffinity: None
+    sessionAffinityConfig: {}
+    annotations: {}
+    externalTrafficPolicy: Cluster
+      
+  mail: 
+    enabled: true   
+    type: LoadBalancer 
+    smtp:
+      enabled: true
+      port: 25
+      nodePort: ""
+      targetPort: smtp
+      protocol: TCP
+    imap:
+      enabled: true
+      port: 143
+      nodePort: ""
+      targetPort: imap
+      protocol: TCP
+      
+    clusterIP: ""
+    loadBalancerIP: ""
+    loadBalancerSourceRanges: []
+    extraPorts: []
+    sessionAffinity: None
+    sessionAffinityConfig: {}
+    annotations: {}
+    externalTrafficPolicy: Cluster
+    
+
+## Configure the ingress resource that allows you to access the
+## smtp4dev installation. Set up the URL
+## ref: https://kubernetes.io/docs/user-guide/ingress/
+##
+ingress:
+  ## @param ingress.enabled Set to true to enable ingress record generation
+  ##
+  enabled: false
+  ## @param ingress.selfSigned Create a TLS secret for this ingress record using self-signed certificates generated by Helm
+  ##
+  selfSigned: false
+  ## @param ingress.pathType Ingress path type
+  ##
+  pathType: ImplementationSpecific
+  ## @param ingress.apiVersion Force Ingress API version (automatically detected if not set)
+  ##
+  apiVersion: ""
+  ## @param ingress.hostname Default host for the ingress resource
+  ##
+  hostname: smtp4dev.local
+  ## @param ingress.path The Path to smtp4dev. You may need to set this to '/*' in order to use this with ALB ingress controllers.
+  ##
+  path: /
+  ## @param ingress.annotations Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
+  ## For a full list of possible ingress annotations, please see
+  ## ref: https://github.com/kubernetes/ingress-smtp4dev/blob/master/docs/user-guide/smtp4dev-configuration/annotations.md
+  ## Use this parameter to set the required annotations for cert-manager, see
+  ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
+  ##
+  ## e.g:
+  ## annotations:
+  ##   kubernetes.io/ingress.class: smtp4dev
+  ##   cert-manager.io/cluster-issuer: cluster-issuer-name
+  ##
+  annotations: {}
+  ## @param ingress.ingressClassName Set the ingerssClassName on the ingress record for k8s 1.18+
+  ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
+  ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
+  ##
+  ingressClassName: ""
+  ## @param ingress.tls Create TLS Secret
+  ## TLS certificates will be retrieved from a TLS secret with name: {{- printf "%s-tls" .Values.ingress.hostname }}
+  ## You can use the ingress.secrets parameter to create this TLS secret or relay on cert-manager to create it
+  ##
+  tls: false
+  ## @param ingress.extraHosts The list of additional hostnames to be covered with this ingress record.
+  ## Most likely the hostname above will be enough, but in the event more hosts are needed, this is an array
+  ## extraHosts:
+  ## - name: smtp4dev.local
+  ##   path: /
+  ##
+  extraHosts: []
+  ## @param ingress.extraPaths Any additional arbitrary paths that may need to be added to the ingress under the main host.
+  ## For example: The ALB ingress controller requires a special rule for handling SSL redirection.
+  ## extraPaths:
+  ## - path: /*
+  ##   backend:
+  ##     serviceName: ssl-redirect
+  ##     servicePort: use-annotation
+  ##
+  extraPaths: []
+  ## @param ingress.extraTls The tls configuration for additional hostnames to be covered with this ingress record.
+  ## see: https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
+  ## extraTls:
+  ## - hosts:
+  ##     - smtp4dev.local
+  ##   secretName: smtp4dev.local-tls
+  ##
+  extraTls: []
+  ## @param ingress.secrets If you're providing your own certificates, please use this to add the certificates as secrets
+  ## key and certificate should start with -----BEGIN CERTIFICATE----- or
+  ## -----BEGIN RSA PRIVATE KEY-----
+  ##
+  ## name should line up with a tlsSecret set further up
+  ## If you're using cert-manager, this is unneeded, as it will create the secret for you if it is not set
+  ##
+  ## It is also possible to create and manage the certificates outside of this helm chart
+  ## Please see README.md for more information
+  ## e.g:
+  ## - name: smtp4dev.local-tls
+  ##   key:
+  ##   certificate:
+  ##
+  secrets: []
+  ## @param ingress.extraRules The list of additional rules to be added to this ingress record. Evaluated as a template
+  ## Useful when looking for additional customization, such as using different backend
+  ##
+  extraRules: []
+

@@ -1,0 +1,28 @@
+
+ingress:
+  enabled: true 
+
+service:
+  web:    
+    enabled: true
+    type: ClusterIP  
+    http:
+      enabled: true
+      port: 80
+      targetPort: 80
+    https:
+      enabled: false
+      port: 8443
+      targetPort: 443
+      
+  mail: 
+    enabled: true   
+    type: LoadBalancer 
+    smtp:
+      enabled: true
+      port: 25
+      targetPort: 25
+    imap:
+      enabled: true
+      port: 143
+      targetPort: 143

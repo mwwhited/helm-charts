@@ -1,0 +1,29 @@
+apiVersion: v2
+name: smtp4dev
+type: application
+
+version: 3.2.0
+appVersion: 3.2.0-ci20221023104
+
+dependencies:
+  - name: common
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - bitnami-common
+    version: 2.x.x
+
+description: smtp4dev - the fake SMTP email server for development and testing.
+home: https://github.com/rnwood/smtp4dev
+icon: https://github.com/rnwood/smtp4dev/raw/master/Rnwood.Smtp4dev/ClientApp/public/logo.png
+keywords:
+  - smtp4dev
+  - smtp
+  - imap
+annotations:
+  category: Infrastructure
+maintainers:
+  - name: Matthew Whited
+    url: https://github.com/mwwhited/helm-charts
+sources:
+  - https://github.com/rnwood/smtp4dev
+  - https://github.com/mwwhited/helm-charts

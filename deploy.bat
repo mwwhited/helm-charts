@@ -1,0 +1,1 @@
+helm upgrade --install smtp4dev smtp4dev/ --values deploy.yaml
