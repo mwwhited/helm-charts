@@ -5,7 +5,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 3.2.0-ci20221023104
-    created: "2023-04-01T08:17:18.5042986-04:00"
+    created: "2023-04-01T08:26:12.3082537-04:00"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -13,7 +13,7 @@ entries:
       - bitnami-common
       version: 2.x.x
     description: smtp4dev - the fake SMTP email server for development and testing.
-    digest: 26328f4be6e641eb48099035838893947f31dd17753924b9238ca428a2dae6e3
+    digest: dbcc4d51a04c4fbc67c920a75aefa1b7284e7f421d88df29877a99aed72a3242
     home: https://github.com/rnwood/smtp4dev
     icon: https://github.com/rnwood/smtp4dev/raw/master/Rnwood.Smtp4dev/ClientApp/public/logo.png
     keywords:
@@ -31,4 +31,4 @@ entries:
     urls:
     - https://github.com/mwwhited/helm-charts/blob/main/smtp4dev-3.2.0.tgz
     version: 3.2.0
-generated: "2023-04-01T08:17:18.499294-04:00"
+generated: "2023-04-01T08:26:12.3036775-04:00"
