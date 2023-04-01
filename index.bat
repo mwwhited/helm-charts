@@ -1,0 +1,1 @@
+helm repo index . --url https://github.com/mwwhited/helm-charts
