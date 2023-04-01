@@ -1,1 +1,1 @@
-helm repo index . --url https://github.com/mwwhited/helm-charts/blob/main
+helm repo index . --url https://mwwhited.github.io/helm-charts/charts
