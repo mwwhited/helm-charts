@@ -1,5 +1,5 @@
 CALL package.bat
-MOVE *.tgz .\docs\charts\ /Y
+MOVE /Y *.tgz .\docs\charts\
 PUSHD .\docs\charts
 CALL ..\..\index.bat
 POPD
