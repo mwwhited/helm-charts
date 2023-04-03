@@ -1,1 +1,1 @@
-helm template smtp4dev smtp4dev/ --values deploy.yaml --debug > smtp4dev.k8s
+helm template smtp4dev smtp4dev/ --values smtp4dev-local-dev.yaml --debug > smtp4dev-template.yaml

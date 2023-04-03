@@ -13,7 +13,6 @@ metadata:
   {{- end }}
 data:
   SMTP4DEV_HTTP_PORT: {{ .Values.containerPorts.http | quote }}
-  SMTP4DEV_PROXY: {{ .Values.proxy | quote }}
   {{- if .Values.logging }}
   SMTP4DEV_LOG_OUTPUT: {{ .Values.logging.output | quote }}
   {{- end }}

@@ -1,1 +1,1 @@
-helm upgrade --install smtp4dev smtp4dev/ --values deploy.yaml
+helm upgrade --install smtp4dev smtp4dev/ --values smtp4dev-local-dev.yaml
