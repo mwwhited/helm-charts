@@ -2,7 +2,7 @@ apiVersion: v2
 name: smtp4dev
 type: application
 
-version: 3.2.0
+version: 0.0.1
 appVersion: 3.2.0-ci20221023104
 
 dependencies:
